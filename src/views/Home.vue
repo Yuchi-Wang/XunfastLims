@@ -1,18 +1,45 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+    <div class="home">
+        <v-head></v-head>
+        <el-menu index="1" class="menu">
+            <el-menu-item index="2">
+                <span slot="title">
+                    <router-link to="/admin">角色</router-link>
+                </span>
+            </el-menu-item>
+            <el-menu-item index="3">
+                <router-link to="/user">用户</router-link>
+            </el-menu-item>
+        </el-menu>
+    </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+import head from '@/views/head'
 
 export default {
-  name: "home",
-  components: {
-    HelloWorld
-  }
+    components: { 'v-head': head },
+    name: "home",
+
 };
 </script>
+<style>
+.home .menu {
+  width: 10%;
+  height: 1000px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  float: left;
+}
+.el-menu-item,
+.el-submenu__title {
+  height: 40px !important;
+  line-height: 40px !important;
+}
+.home .menu a {
+  display: inline-block;
+  width: 100%;
+  height: 40px;
+  color: #737373;
+}
+</style>
+
