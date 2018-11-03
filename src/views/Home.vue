@@ -20,6 +20,7 @@ import head from '@/views/head'
 export default {
     components: { 'v-head': head },
     name: "home",
+    destroyed () { window.location.reload(); },
 
 };
 </script>
@@ -27,6 +28,7 @@ export default {
 .home .menu {
   width: 10%;
   height: 1000px;
+  background: #354052;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
   float: left;
 }
@@ -39,7 +41,13 @@ export default {
   display: inline-block;
   width: 100%;
   height: 40px;
-  color: #737373;
+  color: white;
+}
+.el-menu-item:hover {
+  background-color: #fff !important;
+}
+.el-menu-item:hover a {
+  color: #008cd6;
 }
 </style>
 

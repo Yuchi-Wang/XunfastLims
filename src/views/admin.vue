@@ -113,7 +113,6 @@ export default {
             })
             .then(response => {
                 this.tableData = response.data.result.items;
-                console.log(this.tableData)
             })
             .catch(function (error) { });
         // 获取权限
@@ -156,9 +155,10 @@ export default {
                 this.datas = rolesTree;
             })
             .catch(function (error) {
-                console.log(error);
+                // console.log(error);
             });
     },
+    destroyed () { window.location.reload(); },
     methods: {
         reload () {
             window.location.reload();
@@ -282,7 +282,7 @@ export default {
                     this.checked = c;
                 })
                 .catch(function (error) {
-                    console.log(error);
+                    //  console.log(error);
                 });
         },
         // 发送修改后角色
@@ -320,6 +320,9 @@ export default {
   width: 90%;
   float: left;
 }
+.el-menu {
+  background: #354052;
+}
 .modify,
 .delete {
   display: inline-block;
@@ -327,7 +330,7 @@ export default {
   height: 30px;
   line-height: 30px;
   text-align: center;
-  background: #3a8ee6;
+  background: #409eff;
   color: #fff;
   border-radius: 4px;
   cursor: pointer;
@@ -348,5 +351,12 @@ export default {
 .select {
   overflow: auto;
   height: 300px;
+}
+.el-table th {
+  background-color: #aeb4c1;
+  color: #151515;
+}
+tbody > .el-table__row:nth-child(even) > td {
+  background-color: #e7ebf1;
 }
 </style>

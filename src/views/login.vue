@@ -1,16 +1,18 @@
 <template>
     <div class="login">
-        <div>
-            <h3>迅发平台管理系统</h3>
+        <div style="background:#354052">
+            <div>
+                <h3> <i></i>中国航空油品质量检测实验室信息管理平台权限管理系统</h3>
+            </div>
         </div>
         <div class="bg">
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" class="loginbox">
-                <h4>登录迅发平台</h4>
+                <h4>权限管理平台</h4>
                 <el-form-item>
                     <div class="icon">
                         <i class="lab"></i>
                     </div>
-                    <el-cascader :options="options" v-model="selectedOptions" @change="handleChange" placeholder="请选择实验室" class="content" :props="props">
+                    <el-cascader :options="options" v-model="selectedOptions" @change="handleChange" placeholder="请选择实验室" class="content" :props="props" :show-all-levels="false" filterable change-on-select>
                     </el-cascader>
                 </el-form-item>
                 <el-form-item prop="name">
@@ -65,12 +67,13 @@ export default {
             })
             .catch(function (error) { });
     },
+    destroyed () { window.location.reload(); },
     methods: {
         handleChange (value) { },
         submitForm (formName) {
             this.axios
                 .post(`/api/Account`, {
-                    tenancyName: this.selectedOptions[0],
+                    tenancyName: this.selectedOptions[this.selectedOptions.length - 1],
                     usernameOrEmailAddress: this.ruleForm.name,
                     password: this.ruleForm.password
                 })
@@ -92,7 +95,7 @@ export default {
                 });
         },
         setoptions (ops) {
-            for (let i = 0; i < ops.length; i++) {
+            for (var i = 0; i < ops.length; i++) {
                 if (ops[i].items.length > 0) {
                     this.setoptions(ops[i].items);
                 } else {
@@ -105,30 +108,46 @@ export default {
 };
 </script>
 <style>
-.login > div:first-child {
+body {
+  background: url("../assets/bg.jpg") no-repeat;
+  background-size: cover;
+  background-position: 50% 50%;
+  position: relative;
+}
+.login > div:first-child > div {
   width: 1200px;
   margin: auto;
+  height: 60px;
+  line-height: 60px;
+}
+.login > div:first-child > div i {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  background: url("../../public/logo.png") no-repeat;
+  background-size: contain;
+  vertical-align: middle;
+  margin-right: 5px;
 }
 .login h3 {
-  margin: 30px 0;
   font-size: 20px;
-  font-weight: bold;
+  font-weight: bolder;
+  color: white;
+  vertical-align: middle;
 }
 .login .bg {
   width: 100%;
-  height: 600px;
-  background: url("../assets/bg.jpg") no-repeat;
-  position: relative;
 }
 .loginbox {
-  width: 380px;
-  height: 353px;
-  padding: 40px 50px;
+  width: 500px;
+  padding: 20px 50px;
   background: white;
   position: absolute;
   left: 50%;
-  margin-left: -190px;
-  margin-top: 123px;
+  top: 50%;
+  margin-left: -250px;
+  margin-top: -176px;
+  border-radius: 5px;
 }
 .bg .loginbox h4 {
   width: 100%;
@@ -169,18 +188,19 @@ export default {
   background: url("../../public/password.png") no-repeat;
 }
 .content {
-  width: 230px;
+  width: 350px;
   border-radius: none;
 }
 button {
   width: 100%;
-  background: #1aad19 !important;
-  border-color: #1aad19 !important;
+  background: -webkit-linear-gradient(left top, #346bbe, #3c9ee7) !important;
+  background: -moz-linear-gradient(left top, #346bbe, #3c9ee7) !important;
+  background: -ms-linear-gradient(left top, #346bbe, #3c9ee7) !important;
+  background: -o-linear-gradient(left top, #346bbe, #3c9ee7) !important;
+  background: linear-gradient(left top, #346bbe, #3c9ee7) !important;
   color: #fff !important;
   font-size: 16px !important;
-}
-.el-cascader-menus {
-  top: 295px !important;
+  border-radius: 40px !important;
 }
 .el-input__inner {
   border-top-left-radius: 0;

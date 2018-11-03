@@ -15,13 +15,12 @@ axios.defaults.baseURL = 'http://47.96.234.246:8088'
 axios.defaults.timeout = 5000
 
 Vue.config.productionTip = false;
-axios.defaults.headers.common['Authorization'] = localStorage.getItem("token");
 axios.interceptors.request.use(function (config) {
     let token = localStorage.getItem("token");
     if (token) {
         config.headers.Authorization = token;
     } else {
-        window.location.pathname = '/login'
+        // window.location.pathname = '/login'
     }
     return config;
 }, function (err) {

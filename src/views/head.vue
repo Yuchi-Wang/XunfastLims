@@ -2,7 +2,7 @@
     <div class="header clearfix">
         <header class="clearfix">
             <img src="../../public/logo.png" alt="">
-            <router-link to="/">平台管理系统</router-link>
+            <router-link to="/">中国航空油品质量检测实验室信息管理平台权限管理系统</router-link>
             <el-dropdown trigger="click">
                 <i class="user"></i><span class="el-dropdown-link" id="userName"> {{adminName}}</span>
                 <el-dropdown-menu slot="dropdown">
@@ -182,7 +182,7 @@ export default {
 header {
   width: 100%;
   height: 40px;
-  background: #2dc3e8;
+  background: #354052;
 }
 header img {
   width: 40px;

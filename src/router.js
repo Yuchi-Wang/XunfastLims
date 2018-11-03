@@ -9,27 +9,31 @@ export default new Router({
     routes: [
         {
             path: "/",
-            name: "home",
-            component: Home
+            component: (resolve) => {
+                require(['./views/Home'], resolve)
+            }
         },
         {
             path: "/login",
             name: "login",
-            component: () =>
-                import("./views/login.vue")
+            component: (resolve) => {
+                require(['./views/login'], resolve)
+            }
         },
         {
             path: "/admin",
             name: "admin",
-            component: () =>
-                import("./views/admin.vue")
+            component: (resolve) => {
+                require(['./views/admin'], resolve)
+            }
         },
         {
             path: "/user",
             name: "user",
-            component: () =>
-                import("./views/user.vue")
-        }
+            component: (resolve) => {
+                require(['./views/user'], resolve)
+            }
+        },
 
     ]
 });

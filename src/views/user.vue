@@ -33,12 +33,12 @@
                 </el-table-column>
                 <el-table-column label="性别" align="center" width="50">
                     <template slot-scope="scope">
-                        {{(0=== scope.row.profile.gender)?"女":"男" }}
+                        {{((scope.row.profile && scope.row.profile.gender)===0)?"女":"男" }}
                     </template>
                 </el-table-column>
                 <el-table-column label="生日" align="center" width="100">
                     <template slot-scope="scope">
-                        {{ dateFormat(scope.row.profile && scope.row.profile.birthday, "yyyy-MM-dd" ) }}
+                        {{ scope.row.profile == null?"无": dateFormat(scope.row.profile && scope.row.profile.birthday, "yyyy-MM-dd" ) }}
                     </template>
                 </el-table-column>
                 <el-table-column label="身份证" align="center" prop="profile.idCardNumber" width="120">
@@ -53,27 +53,27 @@
                 </el-table-column>
                 <el-table-column label="入职时间" align="center" width="100">
                     <template slot-scope="scope">
-                        {{ dateFormat(scope.row.profile && scope.row.profile.entryDate, "yyyy-MM-dd" ) }}
+                        {{ scope.row.profile == null?"无": dateFormat(scope.row.profile && scope.row.profile.entryDate, "yyyy-MM-dd" ) }}
                     </template>
                 </el-table-column>
                 <el-table-column label="离职时间" align="center" width="100">
                     <template slot-scope="scope">
-                        {{ dateFormat(scope.row.profile && scope.row.profile.leaveDate, "yyyy-MM-dd" ) }}
+                        {{((scope.row.profile && scope.row.profile.leaveDate) == null)?"无": dateFormat(scope.row.profile && scope.row.profile.leaveDate, "yyyy-MM-dd" ) }}
                     </template>
                 </el-table-column>
                 <el-table-column align="center" label="状态" width="90">
                     <template slot-scope="scope">
-                        {{(true=== scope.row.isActive)?"已激活":"未激活" }}
+                        {{(scope.row.isActive == true)?"已激活":"未激活" }}
                     </template>
                 </el-table-column>
                 <el-table-column align="center" label="是否验证邮箱" width="100">
                     <template slot-scope="scope">
-                        {{(true=== scope.row.isEmailConfirmed)?"是":"否" }}
+                        {{(scope.row.isEmailConfirmed == true)?"是":"否" }}
                     </template>
                 </el-table-column>
                 <el-table-column label="最后登录时间" align="center" width="175">
                     <template slot-scope="scope">
-                        {{ dateFormat(scope.row.lastLoginTime,"yyyy-MM-dd hh:mm:ss") }}
+                        {{ (scope.row.lastLoginTime==null)?"无":dateFormat(scope.row.lastLoginTime,'yyyy-MM-dd hh:mm:ss') }}
                     </template>
                 </el-table-column>
                 <el-table-column align="center" label="创建时间" width="175">
@@ -381,9 +381,10 @@ export default {
             .post(`/api/services/app/user/GetUsers`, {})
             .then(response => {
                 this.tableData = response.data.result.items;
+                console.log(this.tableData)
             })
             .catch(function (error) {
-                console.log(error);
+                // console.log(error);
             });
         // 获取角色所属信息
         this.axios
@@ -394,7 +395,7 @@ export default {
                 this.adminData = response.data.result.roles
             })
             .catch(function (error) {
-                console.log(error);
+                //  console.log(error);
             });
     },
     methods: {
@@ -452,7 +453,7 @@ export default {
                             leaveDate: this.ruleForm.leavedate,
                             remark: this.ruleForm.remark,
                             idCardNumber: this.ruleForm.idcardnumber,
-                            address: this.ruleForm.adress
+                            address: this.ruleForm.adress,
                         }
                     },
                     assignedRoleNames: this.ruleForm.types,
@@ -527,7 +528,7 @@ export default {
                     this.ruleForms.remark = user.profile.remark;
                 })
                 .catch(function (error) {
-                    console.log(error);
+                    // console.log(error);
                 });
         },
         subs () {
@@ -570,7 +571,7 @@ export default {
                     window.location.reload();
                 })
                 .catch(function (error) {
-                    console.log(error);
+                    // console.log(error);
                 });
         },
     }
@@ -581,6 +582,9 @@ export default {
   width: 90%;
   float: left;
 }
+.el-menu {
+  background: #354052;
+}
 .modify,
 .delete {
   display: inline-block;
@@ -588,7 +592,7 @@ export default {
   height: 30px;
   line-height: 30px;
   text-align: center;
-  background: #3a8ee6;
+  background: #409eff;
   color: #fff;
   border-radius: 4px;
   cursor: pointer;
@@ -616,5 +620,12 @@ export default {
 .el-col-18 {
   width: 90%;
   float: right;
+}
+.el-table th {
+  background-color: #aeb4c1;
+  color: #151515;
+}
+tbody > .el-table__row:nth-child(even) > td {
+  background-color: #e7ebf1;
 }
 </style>
